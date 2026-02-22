@@ -14,6 +14,9 @@
     // ── State: load from URL hash ─────────────────────────────────────────
     if (window.BoydState) window.BoydState.loadFromHash();
 
+    // ── Theme toggle ──────────────────────────────────────────────────────
+    if (window.BoydTheme)   window.BoydTheme.init();
+
     // ── Hero ──────────────────────────────────────────────────────────────
     if (window.BoydHero)    window.BoydHero.init();
 

@@ -6,6 +6,11 @@
   <title>John Boyd's Library</title>
   <meta name="description" content="An interactive scroll-driven visualization of John Boyd's personal library — the books that built the OODA loop.">
 
+  <!-- Restore saved theme before paint to avoid flash -->
+  <script>
+    (function(){var t=localStorage.getItem('boyd_theme');if(t)document.documentElement.setAttribute('data-theme',t);})();
+  </script>
+
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,6 +30,7 @@
   <!-- ── Navigation ─────────────────────────────────────────────────────── -->
   <nav id="site-nav" role="navigation" aria-label="Main navigation">
     <button id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+    <button id="theme-toggle" aria-label="Switch to light mode">☀</button>
     <ul id="nav-menu">
       <li><a class="nav-link" href="#hero"                data-scroll data-section="hero">Home</a></li>
       <li><a class="nav-link" href="#section-rankings"    data-scroll data-section="rankings">Rankings</a></li>
@@ -457,6 +463,7 @@
   </footer>
 
   <!-- ── Scripts (order matters) ──────────────────────────────────────── -->
+  <script src="js/theme.js"></script>
   <script src="js/data.js"></script>
   <script src="js/state.js"></script>
   <script src="js/hero.js"></script>
