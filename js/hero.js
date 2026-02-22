@@ -4,7 +4,7 @@
 (function () {
   'use strict';
 
-  var BOYD_URL = 'JohnBoyd_Pilot.jpg';
+  var BOYD_URL = 'Boyd56.png';
 
   function init() {
     var hero = document.getElementById('hero');
