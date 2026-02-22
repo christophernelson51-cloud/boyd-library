@@ -172,6 +172,11 @@ img, video { max-width: 100%; display: block; }
   margin-bottom: 1rem;
 }
 
+.title-initial {
+  font-size: 1.18em;
+  line-height: 1;
+}
+
 .hero-title {
   font-size: clamp(3rem, 8vw, var(--scale-3xl));
   color: var(--text);
