@@ -1223,7 +1223,7 @@ img, video { max-width: 100%; display: block; }
 /* ─── Wide screens: center content in a 1400px band ──────────────────────── */
 @media (min-width: 1600px) {
   .hero-content {
-    padding-left: calc((100vw - 1400px) / 2 + 3rem);
+    margin-left: calc((100vw - 1400px) / 2);
   }
   .hero-pilot {
     right: calc((100vw - 1400px) / 2 + 3rem);
