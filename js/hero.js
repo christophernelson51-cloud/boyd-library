@@ -12,7 +12,7 @@
   var WAVE_ROW  = 55;    // ms added per row
   var TIMEOUT   = 2500;  // give up waiting for covers after this
 
-  var BOYD_URL  = 'Boyd56.png'; // local portrait — reliable from file:// and GitHub Pages
+  var BOYD_URL  = 'https://upload.wikimedia.org/wikipedia/commons/0/0f/JohnBoyd_Pilot.jpg';
 
   // 12 books from Boyd's actual library — ISBNs chosen for Open Library cover availability
   var BOOKS = [
@@ -46,16 +46,25 @@
     addSkipButton(hero);
     wireScrollCue();
 
-    // Preload the Boyd portrait so it's in cache before tiles flip
+    // Preload the Boyd portrait so it's in cache before tiles flip.
+    // crossOrigin='anonymous' allows the browser to fetch without credentials
+    // (Wikimedia Commons is open; this prevents a stale opaque-response cache issue).
     var boydImg = new Image();
-    boydImg.onload = boydImg.onerror = function () {
-      applyBoydImage(boydImg.complete && boydImg.naturalWidth > 0 ? boydImg : null);
-      if (reduced || skipped) {
-        flipAll();
-        revealContent();
-      } else {
-        loadCovers();
-      }
+    boydImg.crossOrigin = 'anonymous';
+    boydImg.onload = function () {
+      applyBoydImage(boydImg);
+      if (reduced || skipped) { flipAll(); revealContent(); }
+      else { loadCovers(); }
+    };
+    boydImg.onerror = function () {
+      // Couldn't load Wikipedia image — fall back to local Boyd56.png
+      var fallback = new Image();
+      fallback.onload = fallback.onerror = function () {
+        applyBoydImage(fallback.naturalWidth > 0 ? fallback : null);
+        if (reduced || skipped) { flipAll(); revealContent(); }
+        else { loadCovers(); }
+      };
+      fallback.src = 'Boyd56.png';
     };
     boydImg.src = BOYD_URL;
   }
@@ -123,26 +132,27 @@
     var tileW  = gridW / COLS;
     var tileH  = gridH / ROWS;
 
-    // Compute cover dimensions (scale image to fill grid, crop overflow)
+    // Contain: scale image to fit entirely within the grid, no cropping.
+    // Dark tiles fill any letterbox/pillarbox area.
     var bgW, bgH, ox, oy;
     if (img && img.naturalWidth && img.naturalHeight) {
       var imgRatio  = img.naturalWidth / img.naturalHeight;
       var gridRatio = gridW / gridH;
       if (imgRatio < gridRatio) {
-        // Portrait in landscape: scale to fill width, crop top/bottom
-        bgW = gridW;
-        bgH = gridW / imgRatio;
-      } else {
+        // Portrait image in landscape grid: fit to height, pillarbox left/right
         bgH = gridH;
         bgW = gridH * imgRatio;
+      } else {
+        // Landscape image: fit to width, letterbox top/bottom
+        bgW = gridW;
+        bgH = gridW / imgRatio;
       }
     } else {
-      // Fallback: stretch to fill
       bgW = gridW;
       bgH = gridH;
     }
 
-    // Center the image over the grid
+    // Center the contained image over the grid
     ox = (gridW - bgW) / 2;
     oy = (gridH - bgH) / 2;
 
