@@ -91,18 +91,11 @@ img, video { max-width: 100%; display: block; }
   z-index: 900;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   padding: 0.75rem 2rem;
   background: rgba(13,13,13,0.92);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
-}
-
-.nav-brand {
-  font-family: var(--font-serif);
-  font-size: var(--scale-md);
-  color: var(--accent);
-  letter-spacing: 0.02em;
 }
 
 #nav-menu {
@@ -141,8 +134,8 @@ img, video { max-width: 100%; display: block; }
   height: 100vh;
   min-height: 600px;
   display: flex;
-  align-items: flex-end;
-  justify-content: flex-start;
+  align-items: flex-start;
+  justify-content: flex-end;
   overflow: hidden;
 }
 
@@ -160,8 +153,8 @@ img, video { max-width: 100%; display: block; }
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(to top, rgba(13,13,13,0.97) 0%, rgba(13,13,13,0.5) 35%, transparent 60%),
-    linear-gradient(to right, rgba(13,13,13,0.6) 0%, transparent 50%);
+    linear-gradient(to bottom, rgba(13,13,13,0.9) 0%, rgba(13,13,13,0.4) 30%, transparent 55%),
+    linear-gradient(to left, rgba(13,13,13,0.9) 0%, transparent 65%);
   pointer-events: none;
 }
 
@@ -169,8 +162,8 @@ img, video { max-width: 100%; display: block; }
   position: relative;
   z-index: 10;
   text-align: left;
-  padding: 0 3rem 5rem;
-  max-width: 700px;
+  padding: 5rem 3rem 0;
+  max-width: 560px;
 }
 
 .hero-eyebrow {
@@ -1219,7 +1212,7 @@ img, video { max-width: 100%; display: block; }
   .filter-chips { padding: 0.5rem 0.5rem; }
 
   .hero-title { font-size: 2.5rem; }
-  .hero-content { padding: 0 1.5rem 4rem; }
+  .hero-content { padding: 5rem 1.5rem 0; }
 }
 
 @media (max-width: 480px) {
