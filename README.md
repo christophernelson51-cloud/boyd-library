@@ -1,6 +1,6 @@
 # John Boyd's Library
 
-A Pudding-style, scroll-driven, single-page visualization of John Boyd's personal library —
+A scroll-driven, single-page visualization of John Boyd's personal library —
 the books that built the OODA loop, and a speculative reading list of what he might have
 read had he lived past 1997.
 
@@ -10,7 +10,7 @@ read had he lived past 1997.
 
 ## What's Inside
 
-- **174 books** in Boyd's actual (or plausibly owned) library
+- **134 books** in Boyd's actual (or plausibly owned) library
 - **~150 speculative titles** (post-1997, rating ≥ 4.0) linked back to actual books via curated connection edges
 - **4 intellectual branches:** War & Strategy · Systems & Science · Mind & Knowledge · Power & Organizations
 - **Sortable/filterable rankings** with drag-to-reorder and pin-to-top
