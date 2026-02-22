@@ -1,26 +1,32 @@
 // js/hero.js
-// Hero: Shows Boyd's portrait as a static background.
+// Hero: Shows Boyd pilot photo positioned on the right side of the hero.
 
 (function () {
   'use strict';
 
-  var BOYD_URL = 'Boyd56.png';
+  var PILOT_URL = 'JohnBoyd_Pilot.jpg';
 
   function init() {
     var hero = document.getElementById('hero');
     if (!hero) return;
 
-    // Set Boyd portrait as a full-bleed background
-    var bg = document.createElement('div');
-    bg.style.cssText = [
+    var img = document.createElement('img');
+    img.src = PILOT_URL;
+    img.alt = 'John Boyd climbing out of cockpit';
+    img.style.cssText = [
       'position:absolute',
-      'inset:0',
-      'background-image:url(\'' + BOYD_URL + '\')',
-      'background-size:cover',
-      'background-position:center top',
-      'z-index:0'
+      'right:8%',
+      'bottom:0',
+      'height:82%',
+      'width:auto',
+      'z-index:1',
+      'object-fit:contain',
+      'filter:contrast(1.08) brightness(0.88)',
+      '-webkit-mask-image:linear-gradient(to top, transparent 0%, black 14%)',
+      'mask-image:linear-gradient(to top, transparent 0%, black 14%)'
     ].join(';');
-    hero.insertBefore(bg, hero.firstChild);
+
+    hero.appendChild(img);
 
     // Reveal headline immediately
     var content = document.getElementById('hero-content');
