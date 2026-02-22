@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════════════════════════════════
    John Boyd's Library — Design System
-   Pudding-style dark editorial aesthetic
+   Dark editorial aesthetic
    ═══════════════════════════════════════════════════════════════════════════ */
 
 /* ─── Custom Properties ───────────────────────────────────────────────────── */
@@ -139,14 +139,74 @@ img, video { max-width: 100%; display: block; }
   overflow: hidden;
 }
 
-#hero-video {
+/* ── Mosaic tile grid ─────────────────────────────────────────────────────── */
+#mosaic-grid {
   position: absolute;
   inset: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  z-index: 0;
+}
+
+.mosaic-tile {
+  overflow: hidden;
+  perspective: 1000px;
+}
+
+.tile-inner {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  object-position: center center;
-  opacity: 0.8;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mosaic-tile.no-transition .tile-inner {
+  transition: none;
+}
+
+.mosaic-tile.flipped .tile-inner {
+  transform: rotateY(180deg);
+}
+
+.tile-front,
+.tile-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  background-size: cover;
+  background-position: center;
+  background-color: var(--surface);
+}
+
+.tile-back {
+  transform: rotateY(180deg);
+  /* background-image, size, position set per-tile by hero.js */
+}
+
+/* Skip animation button */
+#skip-anim {
+  position: absolute;
+  top: 4.5rem;
+  right: 1.5rem;
+  z-index: 20;
+  background: transparent;
+  border: 1px solid var(--subtle);
+  color: var(--subtle);
+  font-size: var(--scale-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: color var(--transition), border-color var(--transition), opacity 0.4s ease;
+}
+
+#skip-anim:hover {
+  color: var(--muted);
+  border-color: var(--muted);
 }
 
 .hero-vignette {
@@ -164,6 +224,12 @@ img, video { max-width: 100%; display: block; }
   text-align: left;
   padding: 5rem 0 0 3rem;
   max-width: 560px;
+  opacity: 0;
+  transition: opacity 0.9s ease;
+}
+
+.hero-content.visible {
+  opacity: 1;
 }
 
 .hero-eyebrow {
