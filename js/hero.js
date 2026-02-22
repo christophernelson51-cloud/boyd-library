@@ -12,7 +12,7 @@
   var WAVE_ROW  = 55;    // ms added per row
   var TIMEOUT   = 2500;  // give up waiting for covers after this
 
-  var BOYD_URL  = 'https://upload.wikimedia.org/wikipedia/commons/0/0f/JohnBoyd_Pilot.jpg';
+  var BOYD_URL  = 'Boyd56.png'; // local portrait — reliable from file:// and GitHub Pages
 
   // 12 books from Boyd's actual library — ISBNs chosen for Open Library cover availability
   var BOOKS = [
@@ -46,13 +46,18 @@
     addSkipButton(hero);
     wireScrollCue();
 
-    if (reduced || skipped) {
-      flipAll();
-      revealContent();
-      return;
-    }
-
-    loadCovers();
+    // Preload the Boyd portrait so it's in cache before tiles flip
+    var boydImg = new Image();
+    boydImg.onload = boydImg.onerror = function () {
+      applyBoydImage(boydImg.complete && boydImg.naturalWidth > 0 ? boydImg : null);
+      if (reduced || skipped) {
+        flipAll();
+        revealContent();
+      } else {
+        loadCovers();
+      }
+    };
+    boydImg.src = BOYD_URL;
   }
 
   // ── Build the 4×3 tile grid ──────────────────────────────────────────────────
@@ -79,15 +84,7 @@
 
         var back  = document.createElement('div');
         back.className   = 'tile-back';
-
-        // Each back tile shows its slice of the Boyd portrait.
-        // background-size: 400% 300% makes the image span the full 4×3 grid.
-        // Percentage position maps each tile to its correct quadrant.
-        back.style.backgroundImage    = 'url(\'' + BOYD_URL + '\')';
-        back.style.backgroundSize     = (COLS * 100) + '% ' + (ROWS * 100) + '%';
-        back.style.backgroundPosition =
-          (COLS > 1 ? (c / (COLS - 1)) * 100 : 0) + '% ' +
-          (ROWS > 1 ? (r / (ROWS - 1)) * 100 : 0) + '%';
+        // background-image, size, position applied later by applyBoydImage()
 
         inner.appendChild(front);
         inner.appendChild(back);
@@ -112,6 +109,50 @@
       revealContent();
     });
     hero.appendChild(btn);
+  }
+
+  // ── Apply Boyd portrait to back faces with pixel-accurate cover sizing ───────
+  // A portrait image in a landscape hero needs explicit cover math;
+  // percentage background-size would squash or letterbox the face.
+  function applyBoydImage(img) {
+    var grid   = document.getElementById('mosaic-grid');
+    if (!grid) return;
+
+    var gridW  = grid.offsetWidth;
+    var gridH  = grid.offsetHeight;
+    var tileW  = gridW / COLS;
+    var tileH  = gridH / ROWS;
+
+    // Compute cover dimensions (scale image to fill grid, crop overflow)
+    var bgW, bgH, ox, oy;
+    if (img && img.naturalWidth && img.naturalHeight) {
+      var imgRatio  = img.naturalWidth / img.naturalHeight;
+      var gridRatio = gridW / gridH;
+      if (imgRatio < gridRatio) {
+        // Portrait in landscape: scale to fill width, crop top/bottom
+        bgW = gridW;
+        bgH = gridW / imgRatio;
+      } else {
+        bgH = gridH;
+        bgW = gridH * imgRatio;
+      }
+    } else {
+      // Fallback: stretch to fill
+      bgW = gridW;
+      bgH = gridH;
+    }
+
+    // Center the image over the grid
+    ox = (gridW - bgW) / 2;
+    oy = (gridH - bgH) / 2;
+
+    document.querySelectorAll('.tile-back').forEach(function (back, i) {
+      var c = i % COLS;
+      var r = Math.floor(i / COLS);
+      back.style.backgroundImage    = 'url(\'' + BOYD_URL + '\')';
+      back.style.backgroundSize     = bgW + 'px ' + bgH + 'px';
+      back.style.backgroundPosition = (ox - c * tileW) + 'px ' + (oy - r * tileH) + 'px';
+    });
   }
 
   // ── Load covers with a 2.5s timeout fallback ────────────────────────────────
