@@ -112,9 +112,11 @@
       <p class="section-label">The Full Library</p>
       <h2 class="section-title">Boyd's Books, Ranked</h2>
       <p class="section-intro">
-        Every book in Boyd's verified and supplemental library. Sort by rating, year,
-        title, or category. Filter by intellectual branch. Pin favorites. Drag to reorder.
-      </p>
+        Books drawn from <a href="https://www.coljohnboyd.com/#pdf-personal-papers-part-ii" target="_blank" rel="noopener">Boyd's personal papers</a>
+        — ratings mapped from Goodreads.
+        Sort by rating, year, title, or category. Filter by intellectual branch. Pin favorites.
+        Click on a title to find it.
+</p>
     </div>
 
     <!-- Sticky controls -->
@@ -170,18 +172,58 @@
       <h2 class="section-title">The Knowledge Tree</h2>
       <p class="section-intro">
         Boyd's library organized into four intellectual branches. Click a branch or
-        category to filter the rankings above. Hover nodes for details.
-        Scroll/pinch to zoom.
+        category to filter the rankings above. Scroll/pinch to zoom.
       </p>
       <div class="tree-controls">
         <button id="tree-reset" aria-label="Reset tree view">↺ Reset View</button>
         <p class="tree-hint">Click nodes to expand · Click category to filter rankings</p>
+        <div class="tree-legend" aria-label="Legend">
+          <div class="legend-row">
+            <span class="legend-item">
+              <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
+                <circle cx="7" cy="7" r="5" fill="#2a2a2a" stroke="#888" stroke-width="2"/>
+              </svg>
+              Verified book
+            </span>
+            <span class="legend-item">
+              <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
+                <circle cx="7" cy="7" r="5" fill="transparent" stroke="#c9a84c" stroke-width="1.5" stroke-dasharray="3,2"/>
+              </svg>
+              Speculative title
+            </span>
+          </div>
+          <div class="legend-row">
+            <span class="legend-item">
+              <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
+                <circle cx="5" cy="5" r="5" fill="#8b1a1a"/>
+              </svg>
+              War &amp; Strategy
+            </span>
+            <span class="legend-item">
+              <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
+                <circle cx="5" cy="5" r="5" fill="#1a4a8b"/>
+              </svg>
+              Systems &amp; Science
+            </span>
+            <span class="legend-item">
+              <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
+                <circle cx="5" cy="5" r="5" fill="#2d6e4e"/>
+              </svg>
+              Mind &amp; Knowledge
+            </span>
+            <span class="legend-item">
+              <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
+                <circle cx="5" cy="5" r="5" fill="#6b3d8b"/>
+              </svg>
+              Power &amp; Organizations
+            </span>
+          </div>
+        </div>
       </div>
     </div>
     <div class="tree-container">
       <div id="tree-wrapper" role="figure" aria-label="Collapsible knowledge taxonomy tree"></div>
     </div>
-    <div id="tree-tooltip" role="tooltip" aria-live="polite"></div>
   </section>
 
   <!-- ══════════════════════════════════════════════════════════════════════
@@ -277,7 +319,7 @@
       <p class="year-divider-text">
         John Boyd died on March 9, 1997. He was 70 years old. What follows is speculation:
         books published after his death that extend the intellectual traditions he built.
-        These are not books Boyd read. They are books Boyd <em>would have read</em>—
+        These are not books Boyd read. They are books Boyd <em>might have read</em>—
         chosen because they push further down the paths he opened.
       </p>
     </div>
@@ -390,11 +432,12 @@
       <div class="sources-block">
         <h3>Sources &amp; Further Reading</h3>
         <ul>
-          <li>Robert Coram, <em>Boyd: The Fighter Pilot Who Changed the Art of War</em> (2002) — primary biography and library documentation</li>
+          <li>Robert Coram, <em>Boyd: The Fighter Pilot Who Changed the Art of War</em> (2002)</li>
           <li>Frans P.B. Osinga, <em>Science, Strategy and War: The Strategic Theory of John Boyd</em> (2007) — definitive intellectual history</li>
           <li>Grant T. Hammond, <em>The Mind of War: John Boyd and American Security</em> (2001) — epistemological analysis</li>
-          <li>Chet Richards, <em>Certain to Win</em> (2004) — Boyd's management theory</li>
-          <li>John Boyd, <em>A Discourse on Winning and Losing</em> (unpublished briefing, 1987–1995) — primary source</li>
+<li>John Boyd, <em>A Discourse on Winning and Losing</em> (unpublished briefing, 1987–1995) — primary source</li>
+          <li>Ian T. Brown, <em>A New Conception of War: John Boyd, the U.S. Marines, and Maneuver Warfare</em> (2018) — definitive account of Boyd's influence on Marine Corps doctrine</li>
+          <li><a href="https://www.coljohnboyd.com/" target="_blank" rel="noopener">coljohnboyd.com</a> — primary archival resource including Boyd's personal papers</li>
           <li>Pentagon reading lists and archival records — library verification</li>
           <li>Goodreads community ratings — as of 2024–2025</li>
         </ul>
