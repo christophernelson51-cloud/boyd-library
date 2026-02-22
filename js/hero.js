@@ -13,18 +13,7 @@
     var img = document.createElement('img');
     img.src = PILOT_URL;
     img.alt = 'John Boyd climbing out of cockpit';
-    img.style.cssText = [
-      'position:absolute',
-      'right:8%',
-      'bottom:0',
-      'height:82%',
-      'width:auto',
-      'z-index:1',
-      'object-fit:contain',
-      'filter:contrast(1.08) brightness(0.88)',
-      '-webkit-mask-image:linear-gradient(to top, transparent 0%, black 14%)',
-      'mask-image:linear-gradient(to top, transparent 0%, black 14%)'
-    ].join(';');
+    img.className = 'hero-pilot';
 
     hero.appendChild(img);
 

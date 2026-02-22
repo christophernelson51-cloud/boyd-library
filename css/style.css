@@ -140,6 +140,20 @@ img, video { max-width: 100%; display: block; }
 }
 
 
+/* ── Pilot photo ──────────────────────────────────────────────────────────── */
+.hero-pilot {
+  position: absolute;
+  right: 8%;
+  bottom: 0;
+  height: 82%;
+  width: auto;
+  z-index: 1;
+  object-fit: contain;
+  filter: contrast(1.08) brightness(0.88);
+  -webkit-mask-image: linear-gradient(to top, transparent 0%, black 14%);
+  mask-image: linear-gradient(to top, transparent 0%, black 14%);
+}
+
 .hero-vignette {
   position: absolute;
   inset: 0;
@@ -1206,6 +1220,16 @@ img, video { max-width: 100%; display: block; }
 .bg-power  { background: var(--branch-power); }
 
 /* ─── Responsive ──────────────────────────────────────────────────────────── */
+/* ─── Wide screens: center content in a 1400px band ──────────────────────── */
+@media (min-width: 1600px) {
+  .hero-content {
+    padding-left: calc((100vw - 1400px) / 2 + 3rem);
+  }
+  .hero-pilot {
+    right: calc((100vw - 1400px) / 2 + 3rem);
+  }
+}
+
 @media (max-width: 768px) {
   #nav-menu {
     display: none;
@@ -1243,6 +1267,12 @@ img, video { max-width: 100%; display: block; }
 
   .hero-title { font-size: 2.5rem; }
   .hero-content { padding: 5rem 0 0 1.5rem; }
+
+  .hero-pilot {
+    height: 55%;
+    right: -2%;
+    opacity: 0.35;
+  }
 }
 
 @media (max-width: 480px) {
