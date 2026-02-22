@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>John Boyd's Library</title>
+  <meta name="description" content="An interactive scroll-driven visualization of John Boyd's personal library — the books that built the OODA loop.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- D3 v7 -->
+  <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Reading Progress Bar -->
+  <div id="progress-bar" role="progressbar" aria-label="Reading progress"></div>
+
+  <!-- ── Navigation ─────────────────────────────────────────────────────── -->
+  <nav id="site-nav" role="navigation" aria-label="Main navigation">
+    <span class="nav-brand">John Boyd's Library</span>
+    <button id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+    <ul id="nav-menu">
+      <li><a class="nav-link" href="#hero"                data-scroll data-section="hero">Home</a></li>
+      <li><a class="nav-link" href="#section-rankings"    data-scroll data-section="rankings">Rankings</a></li>
+      <li><a class="nav-link" href="#section-tree"        data-scroll data-section="tree">Tree</a></li>
+      <li><a class="nav-link" href="#section-narrative-war"   data-scroll data-section="narrative">Library</a></li>
+      <li><a class="nav-link" href="#section-speculative" data-scroll data-section="speculative">Speculative</a></li>
+      <li><a class="nav-link" href="#section-methodology" data-scroll data-section="methodology">Notes</a></li>
+    </ul>
+  </nav>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       SECTION 1 — HERO
+       ══════════════════════════════════════════════════════════════════════ -->
+  <section id="hero" data-section="hero" aria-label="Hero">
+    <video id="hero-video"
+           autoplay loop muted playsinline
+           poster="Boyd56.png"
+           aria-hidden="true">
+      <source src="black_and_white_man_web.mp4" type="video/mp4">
+    </video>
+    <div class="hero-vignette" aria-hidden="true"></div>
+
+    <div class="hero-content">
+      <h1 class="hero-title">John Boyd's Library</h1>
+      <p class="hero-subtitle">The books that built the OODA loop — and what he might have read next.</p>
+      <p class="hero-meta">
+        <span>134 books</span> · <span>4 intellectual branches</span> · <span>600 BCE–1997</span>
+      </p>
+    </div>
+
+    <div id="scroll-cue" role="button" tabindex="0" aria-label="Scroll to begin">
+      <span>Scroll</span>
+      <div class="scroll-arrow" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       SECTION 2 — INTRO / CONTEXT
+       ══════════════════════════════════════════════════════════════════════ -->
+  <section id="section-intro" data-section="intro">
+    <div class="section">
+      <p class="section-label">The Man &amp; The Mind</p>
+      <div class="intro-grid">
+        <div class="intro-portrait">
+          <img src="Boyd56.png" alt="John Boyd, circa 1956" loading="lazy">
+          <p class="intro-portrait-caption">John Boyd, fighter pilot and military strategist, 1927–1997</p>
+        </div>
+        <div class="intro-text">
+          <h2 class="section-title">The Intellectual Architecture of the OODA Loop</h2>
+          <p>
+            Colonel John Richard Boyd never published a book. His legacy lives in a
+            briefing — <em>A Discourse on Winning and Losing</em> — and in the minds of
+            the officers, defense reformers, and business strategists he seduced into
+            all-night conversations in the Pentagon.
+          </p>
+          <p>
+            But Boyd read voraciously. His personal library spanned military history and
+            thermodynamics, Zen philosophy and cybernetics, chaos theory and Toyota
+            production systems. These books were not decoration — they were raw material.
+            Each one contributed a concept, a metaphor, or a formal tool to the OODA loop.
+          </p>
+          <p>
+            This project maps that library: 134 verified books from Boyd's collection.
+            Below, we also speculate about what Boyd <em>would</em> have read had he
+            lived past 1997.
+          </p>
+          <div class="stats-row">
+            <div class="stat-item">
+              <span class="stat-number">134</span>
+              <span class="stat-label">Verified books</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">4</span>
+              <span class="stat-label">Intellectual branches</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">4.08</span>
+              <span class="stat-label">Avg Goodreads rating</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       SECTION 3 — RANKINGS
+       ══════════════════════════════════════════════════════════════════════ -->
+  <section id="section-rankings" data-section="rankings">
+    <div class="section" style="padding-bottom:1rem">
+      <p class="section-label">The Full Library</p>
+      <h2 class="section-title">Boyd's Books, Ranked</h2>
+      <p class="section-intro">
+        Every book in Boyd's verified and supplemental library. Sort by rating, year,
+        title, or category. Filter by intellectual branch. Pin favorites. Drag to reorder.
+      </p>
+    </div>
+
+    <!-- Sticky controls -->
+    <div class="controls-bar" role="search" aria-label="Filter and sort books">
+      <div class="controls-left">
+        <div class="search-wrap">
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <input type="search"
+                 id="search-input"
+                 placeholder="Search titles, authors, categories…"
+                 aria-label="Search books">
+        </div>
+        <select id="sort-select" aria-label="Sort books by">
+          <option value="rating">Sort: Rating</option>
+          <option value="year">Sort: Year</option>
+          <option value="title">Sort: Title</option>
+          <option value="category">Sort: Category</option>
+          <option value="author">Sort: Author</option>
+        </select>
+        <button id="sort-dir-btn" aria-label="Toggle sort direction">↓ Desc</button>
+      </div>
+      <div class="controls-right">
+        <button id="clear-filters" aria-label="Clear all filters">Clear</button>
+      </div>
+    </div>
+
+    <!-- Branch filter chips -->
+    <div class="filter-chips" role="group" aria-label="Filter by branch">
+      <button class="filter-chip" data-branch="war"
+              style="border-color:#8b1a1a;color:#8b1a1a"
+              aria-pressed="false">War &amp; Strategy</button>
+      <button class="filter-chip" data-branch="science"
+              style="border-color:#1a4a8b;color:#1a4a8b"
+              aria-pressed="false">Systems &amp; Science</button>
+      <button class="filter-chip" data-branch="mind"
+              style="border-color:#2d6e4e;color:#2d6e4e"
+              aria-pressed="false">Mind &amp; Knowledge</button>
+      <button class="filter-chip" data-branch="power"
+              style="border-color:#6b3d8b;color:#6b3d8b"
+              aria-pressed="false">Power &amp; Organizations</button>
+    </div>
+
+    <p id="rankings-count" aria-live="polite"></p>
+    <ul id="rankings-list" role="list" aria-label="Book rankings"></ul>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       SECTION 4 — TIDY TREE
+       ══════════════════════════════════════════════════════════════════════ -->
+  <section id="section-tree" data-section="tree">
+    <div class="section" style="padding-bottom:1.5rem">
+      <p class="section-label">Taxonomy</p>
+      <h2 class="section-title">The Knowledge Tree</h2>
+      <p class="section-intro">
+        Boyd's library organized into four intellectual branches. Click a branch or
+        category to filter the rankings above. Hover nodes for details.
+        Scroll/pinch to zoom.
+      </p>
+      <div class="tree-controls">
+        <button id="tree-reset" aria-label="Reset tree view">↺ Reset View</button>
+        <p class="tree-hint">Click nodes to expand · Click category to filter rankings</p>
+      </div>
+    </div>
+    <div class="tree-container">
+      <div id="tree-wrapper" role="figure" aria-label="Collapsible knowledge taxonomy tree"></div>
+    </div>
+    <div id="tree-tooltip" role="tooltip" aria-live="polite"></div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       SECTION 5 — LONG SCROLL NARRATIVE
+       ══════════════════════════════════════════════════════════════════════ -->
+
+  <!-- WAR & STRATEGY -->
+  <section id="section-narrative-war" class="narrative-section" data-section="narrative-war">
+    <div class="branch-header">
+      <span class="branch-tag branch-war" style="border-color:#8b1a1a;color:#8b1a1a">Branch I</span>
+      <h2 class="branch-title">War &amp; Strategy</h2>
+      <p class="branch-tagline">The empirical foundation of the OODA loop</p>
+      <p class="branch-narrative">
+        Boyd began as a fighter pilot and ended as the most original military theorist since Clausewitz.
+        His library of war was not about tactics—it was a forensic investigation into why some forces
+        shatter their opponents while others merely defeat them. From Sun Tzu's indirect approach to
+        van Creveld's command theory, Boyd sought the invariant principle behind all decisive action:
+        getting inside your opponent's decision cycle.
+      </p>
+    </div>
+    <div id="narrative-war">
+      <!-- Populated by app.js -->
+    </div>
+  </section>
+
+  <!-- SYSTEMS & SCIENCE -->
+  <section id="section-narrative-science" class="narrative-section" data-section="narrative-science">
+    <div class="branch-header">
+      <span class="branch-tag" style="border-color:#1a4a8b;color:#1a4a8b">Branch II</span>
+      <h2 class="branch-title">Systems &amp; Science</h2>
+      <p class="branch-tagline">The physics of uncertainty and emergence</p>
+      <p class="branch-narrative">
+        Boyd was a physicist manqué. He read Prigogine, Gleick, and Kauffman not for metaphor but
+        for mechanism—these scientists were describing the same phenomena he observed in aerial
+        combat: systems driven far from equilibrium, where small differences in initial conditions
+        produce radically different outcomes. The Second Law of Thermodynamics was, to Boyd, a
+        strategic constraint. Complexity was the terrain.
+      </p>
+    </div>
+    <div id="narrative-science">
+      <!-- Populated by app.js -->
+    </div>
+  </section>
+
+  <!-- MIND & KNOWLEDGE -->
+  <section id="section-narrative-mind" class="narrative-section" data-section="narrative-mind">
+    <div class="branch-header">
+      <span class="branch-tag" style="border-color:#2d6e4e;color:#2d6e4e">Branch III</span>
+      <h2 class="branch-title">Mind &amp; Knowledge</h2>
+      <p class="branch-tagline">Orientation as the mental model of the world</p>
+      <p class="branch-narrative">
+        The "O" in OODA—Orientation—is the keystone of Boyd's theory. It is not merely a step;
+        it is the lens through which all observations are filtered and all decisions emerge.
+        Boyd read Bateson, Polanyi, Maturana, and Hofstadter to understand how minds construct
+        their models of reality, how those models become rigid or adaptive, and what it means
+        to destroy an opponent's capacity to orient—to shatter the mental map they use to
+        navigate the world.
+      </p>
+    </div>
+    <div id="narrative-mind">
+      <!-- Populated by app.js -->
+    </div>
+  </section>
+
+  <!-- POWER & ORGANIZATIONS -->
+  <section id="section-narrative-power" class="narrative-section" data-section="narrative-power">
+    <div class="branch-header">
+      <span class="branch-tag" style="border-color:#6b3d8b;color:#6b3d8b">Branch IV</span>
+      <h2 class="branch-title">Power &amp; Organizations</h2>
+      <p class="branch-tagline">How institutions amplify or destroy human potential</p>
+      <p class="branch-narrative">
+        Boyd spent the last years of his life in Washington, fighting bureaucracies. He read
+        Deming and Ohno not as management consultants but as theorists of organizational
+        entropy—every meeting, every layer of approval, every specification sheet was friction
+        that degraded the tempo of decision. Game theory told him how cooperation emerged and
+        collapsed. Leadership theory told him what culture enables rapid learning under pressure.
+      </p>
+    </div>
+    <div id="narrative-power">
+      <!-- Populated by app.js -->
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       SECTION 6 — SPECULATIVE
+       ══════════════════════════════════════════════════════════════════════ -->
+  <section id="section-speculative" data-section="speculative">
+
+    <div class="year-divider">
+      <div class="year-divider-line">
+        <span class="year-divider-badge">——— 1997 ———</span>
+      </div>
+      <p class="year-divider-text">
+        John Boyd died on March 9, 1997. He was 70 years old. What follows is speculation:
+        books published after his death that extend the intellectual traditions he built.
+        These are not books Boyd read. They are books Boyd <em>would have read</em>—
+        chosen because they push further down the paths he opened.
+      </p>
+    </div>
+
+    <div class="section" style="padding-top:0">
+      <p class="section-label">Post-1997 Projections</p>
+      <h2 class="section-title animate-in">If Boyd Had Kept Reading…</h2>
+      <p class="section-intro animate-in">
+        Each speculative title is rated 4.0 or above on Goodreads and connected to a
+        specific book in Boyd's actual library. Connection types range from direct
+        conceptual successors to same-category companions. Only books published after
+        1997 that Boyd could not have read are included.
+      </p>
+
+      <div class="speculative-caveat animate-in">
+        <h4>⚠ A note on methodology</h4>
+        <p>
+          Speculative attribution is inherently contested. Boyd was an idiosyncratic reader
+          who followed intellectual scent wherever it led. The selections here represent a
+          reasoned reconstruction based on his documented interests, the intellectual
+          communities he participated in, and the directions his unfinished work was moving.
+          Treat this section as a <em>reading list inspired by Boyd</em>, not a prediction.
+        </p>
+      </div>
+
+      <!-- WAR speculative -->
+      <div class="branch-header" style="padding-left:0;padding-right:0">
+        <span class="branch-tag branch-war" style="border-color:#8b1a1a;color:#8b1a1a">War &amp; Strategy</span>
+      </div>
+      <div class="card-grid" id="speculative-war"></div>
+
+      <!-- SCIENCE speculative -->
+      <div class="branch-header" style="padding-left:0;padding-right:0">
+        <span class="branch-tag" style="border-color:#1a4a8b;color:#1a4a8b">Systems &amp; Science</span>
+      </div>
+      <div class="card-grid" id="speculative-science"></div>
+
+      <!-- MIND speculative -->
+      <div class="branch-header" style="padding-left:0;padding-right:0">
+        <span class="branch-tag" style="border-color:#2d6e4e;color:#2d6e4e">Mind &amp; Knowledge</span>
+      </div>
+      <div class="card-grid" id="speculative-mind"></div>
+
+      <!-- POWER speculative -->
+      <div class="branch-header" style="padding-left:0;padding-right:0">
+        <span class="branch-tag" style="border-color:#6b3d8b;color:#6b3d8b">Power &amp; Organizations</span>
+      </div>
+      <div class="card-grid" id="speculative-power"></div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       SECTION 7 — METHODOLOGY & CAVEATS
+       ══════════════════════════════════════════════════════════════════════ -->
+  <section id="section-methodology" data-section="methodology">
+    <div class="section">
+      <p class="section-label">About This Project</p>
+      <h2 class="section-title animate-in">Methodology &amp; Caveats</h2>
+
+      <div class="methodology-grid">
+        <div class="callout-block animate-in">
+          <h3>01 — What "Speculative" Means Here</h3>
+          <p>
+            A speculative book is one that (a) Boyd could not have read because it was
+            published after March 9, 1997; (b) belongs to an intellectual tradition Boyd
+            demonstrably engaged with; and (c) has a Goodreads rating of 4.0 or above,
+            suggesting widespread recognition in its field. Speculative attribution does
+            not imply endorsement—Boyd disagreed with many of his sources.
+          </p>
+        </div>
+
+        <div class="callout-block animate-in">
+          <h3>02 — Goodreads Rating Bias</h3>
+          <p>
+            Goodreads ratings systematically favor popular, contemporary, and narrative-driven
+            books. Dense academic texts—like Ashby's <em>Introduction to Cybernetics</em>
+            or Kauffman's <em>Origins of Order</em>—are underrated relative to their
+            intellectual significance. Conversely, accessible popularizations tend to be
+            overrated. The ratings here are useful for ordering but should not be mistaken
+            for quality rankings among technical texts.
+          </p>
+        </div>
+
+        <div class="callout-block animate-in">
+          <h3>03 — Algorithmic vs. Word-of-Mouth Curation</h3>
+          <p>
+            Boyd's reading was not algorithmic—it was driven by personal recommendation,
+            serendipitous discovery, and the intellectual network of the Pentagon reform
+            movement. The speculative selection here uses topic modeling and citation
+            network analysis as a starting point, but the final choices reflect editorial
+            judgment about what Boyd's distinctive synthesis required. No algorithm
+            can fully replicate a mind like Boyd's.
+          </p>
+        </div>
+
+        <div class="callout-block animate-in">
+          <h3>04 — How Connection Edges Were Determined</h3>
+          <p>
+            Each speculative book includes a <em>connection edge</em>—a link to a specific
+            book in Boyd's actual library. Approximately 20 edges are curated with explicit
+            justifications; the remainder are tagged <em>same-category</em> as a heuristic.
+            Curated edges prioritize intellectual lineage over superficial topic similarity:
+            a book on military strategy that advances a specific argument Boyd engaged with
+            is preferred over a book that merely covers the same subject.
+          </p>
+        </div>
+      </div>
+
+      <!-- Sources -->
+      <div class="sources-block">
+        <h3>Sources &amp; Further Reading</h3>
+        <ul>
+          <li>Robert Coram, <em>Boyd: The Fighter Pilot Who Changed the Art of War</em> (2002) — primary biography and library documentation</li>
+          <li>Frans P.B. Osinga, <em>Science, Strategy and War: The Strategic Theory of John Boyd</em> (2007) — definitive intellectual history</li>
+          <li>Grant T. Hammond, <em>The Mind of War: John Boyd and American Security</em> (2001) — epistemological analysis</li>
+          <li>Chet Richards, <em>Certain to Win</em> (2004) — Boyd's management theory</li>
+          <li>John Boyd, <em>A Discourse on Winning and Losing</em> (unpublished briefing, 1987–1995) — primary source</li>
+          <li>Pentagon reading lists and archival records — library verification</li>
+          <li>Goodreads community ratings — as of 2024–2025</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ────────────────────────────────────────────────────────── -->
+  <footer id="site-footer">
+    <p class="footer-brand">John Boyd's Library</p>
+    <p class="footer-text">
+      An independent data visualization project. Not affiliated with the U.S. military
+      or any official Boyd archive. Book data compiled from public records, biographical
+      sources, and Goodreads community ratings.
+      Built to be hosted on GitHub Pages — no server required.
+    </p>
+  </footer>
+
+  <!-- ── Scripts (order matters) ──────────────────────────────────────── -->
+  <script src="js/data.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/hero.js"></script>
+  <script src="js/scroll.js"></script>
+  <script src="js/rankings.js"></script>
+  <script src="js/tree.js"></script>
+  <script src="js/covers.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
