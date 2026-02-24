@@ -12,6 +12,18 @@
   var active     = 0;
   var MAX        = 3;
 
+  // Curated ISBN overrides for books where Open Library's default search
+  // returns a foreign-edition cover. Keys are "title||author".
+  // ISBNs are verified English editions.
+  var OVERRIDES = {
+    'A Brief History of Time||Stephen Hawking':
+      'https://covers.openlibrary.org/b/isbn/0553346148-M.jpg',  // 1988 Bantam English ed.
+    'On War||Carl von Clausewitz':
+      'https://covers.openlibrary.org/b/isbn/0691018545-M.jpg',  // Princeton Howard/Paret
+    'The Tao Te Ching||Lao Tzu':
+      'https://covers.openlibrary.org/b/isbn/0140441131-M.jpg',  // Penguin Classics (Lau)
+  };
+
   function key(title, author) {
     return title + '||' + author;
   }
@@ -42,6 +54,13 @@
 
     if (CACHE.has(k)) {
       _apply(el, CACHE.get(k));
+      return;
+    }
+
+    // Use curated override if available — skips API call entirely
+    if (OVERRIDES[k]) {
+      CACHE.set(k, OVERRIDES[k]);
+      _apply(el, OVERRIDES[k]);
       return;
     }
 
