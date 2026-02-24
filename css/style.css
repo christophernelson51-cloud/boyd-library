@@ -312,7 +312,16 @@ img, video { max-width: 100%; display: block; }
 .hero-title {
   font-size: clamp(3rem, 8vw, var(--scale-3xl));
   color: var(--text);
-  text-shadow: 0 2px 40px rgba(0,0,0,0.8);
+  text-shadow:
+    -2px -2px 0 rgba(0,0,0,0.95),
+     2px -2px 0 rgba(0,0,0,0.95),
+    -2px  2px 0 rgba(0,0,0,0.95),
+     2px  2px 0 rgba(0,0,0,0.95),
+    -2px  0   0 rgba(0,0,0,0.95),
+     2px  0   0 rgba(0,0,0,0.95),
+     0   -2px 0 rgba(0,0,0,0.95),
+     0    2px 0 rgba(0,0,0,0.95),
+     0    4px 24px rgba(0,0,0,0.75);
   margin-bottom: 1.5rem;
   letter-spacing: -0.01em;
 }
