@@ -23,14 +23,14 @@
     { id: 'godel-escher-bach-douglas-hofstadter',   label: 'Gödel, Escher, Bach — Hofstadter (1979, annotated)' },
     { id: 'evolutionofcoope1984axel',               label: 'The Evolution of Cooperation — Axelrod (1984, annotated)' },
     { id: 'orderoutofchaosm00prig',                 label: 'Order Out of Chaos — Prigogine (1984, 2 copies)' },
-    { id: 'briefhistoryofti0000hawk_j2d2',          label: 'A Brief History of Time — Hawking (1988, annotated)' },
+    { id: 'briefhistoryofti0000hawk',               label: 'A Brief History of Time — Hawking (1988, annotated)' },
     { id: 'taoteching0000laoz_l1p2',                label: 'Tao Te Ching — Lao Tzu (annotated)' },
     { id: 'structureofscien0003kuhn_k955',          label: 'The Structure of Scientific Revolutions — Kuhn (3 copies)' },
     { id: 'stepstoecologyof0000bate',               label: 'Steps to an Ecology of Mind — Bateson (1972)' },
     // Confirmed in Part I (Military History / Strategy section)
     { id: 'artofwaroldestmi00suntuoft',             label: 'The Art of War — Sun Tzu' },
     { id: 'onwar0000clau',                          label: 'On War — Clausewitz' },
-    { id: 'infantryattacks0000romm',                label: 'Infantry Attacks — Rommel' },
+    { id: 'faceofbattle0000keeg',                   label: 'The Face of Battle — Keegan (1976)' },
     { id: 'strategyindirect0000lidd',               label: 'Strategy: The Indirect Approach — Liddell Hart' },
   ];
 
