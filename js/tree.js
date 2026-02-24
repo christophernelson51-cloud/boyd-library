@@ -12,7 +12,6 @@
   var svg, gMain, gLinks, gNodes;
   var treeLayout, root;
   var width, height;
-  var tooltip;
 
   // Dimensions
   var margin = { top: 30, right: 200, bottom: 30, left: 140 };
@@ -141,58 +140,6 @@
     }
   }
 
-  // ─── Tooltip ──────────────────────────────────────────────────────────────
-  function showTooltip(event, d) {
-    if (!tooltip) return;
-    var node = d.data;
-    var html = '<strong>' + _esc(node.name) + '</strong>';
-
-    if (node.type === 'category') {
-      html += '<br>' + node.bookCount + ' books';
-      if (node.avgRating) html += ' &middot; avg ' + node.avgRating.toFixed(2) + '★';
-      if (node.topBooks && node.topBooks.length) {
-        html += '<br><em>Top titles:</em>';
-        node.topBooks.forEach(function (t) { html += '<br>— ' + _esc(t); });
-      }
-      html += '<br><span style="opacity:0.6;font-size:0.85em">Click to filter rankings</span>';
-    } else if (node.type === 'book') {
-      html += '<br>' + _esc(node.author);
-      html += '<br>' + (node.year < 0 ? Math.abs(node.year) + ' BCE' : node.year);
-      html += ' &middot; ' + node.rating.toFixed(2) + '★';
-      if (d._children || d.children) {
-        var count = (d._children || d.children).length;
-        html += '<br><span style="color:#c9a84c;font-size:0.85em">▸ ' + count + ' speculative successor' + (count > 1 ? 's' : '') + '</span>';
-      }
-    } else if (node.type === 'speculative') {
-      html += '<br>' + _esc(node.author) + ' · ' + node.year;
-      html += '<br>' + node.rating.toFixed(2) + '★';
-      html += '<br><span style="color:#c9a84c;font-size:0.85em">' + _esc(node.connectionType) + '</span>';
-      if (node.justification) {
-        var j = node.justification.length > 120 ? node.justification.slice(0, 118) + '…' : node.justification;
-        html += '<br><em style="opacity:0.75">' + _esc(j) + '</em>';
-      }
-    } else if (node.type === 'branch') {
-      html += '<br><span style="opacity:0.6;font-size:0.85em">Click to filter rankings</span>';
-    }
-
-    tooltip.innerHTML = html;
-    tooltip.style.display = 'block';
-    _positionTooltip(event);
-  }
-
-  function moveTooltip(event) { _positionTooltip(event); }
-  function hideTooltip()      { if (tooltip) tooltip.style.display = 'none'; }
-
-  function _positionTooltip(event) {
-    if (!tooltip) return;
-    var x = event.pageX + 14;
-    var y = event.pageY - 32;
-    if (x + tooltip.offsetWidth  > window.innerWidth  - 20) x = event.pageX - tooltip.offsetWidth  - 14;
-    if (y + tooltip.offsetHeight > window.innerHeight - 20) y = event.pageY - tooltip.offsetHeight - 14;
-    tooltip.style.left = x + 'px';
-    tooltip.style.top  = y + 'px';
-  }
-
   // ─── Update tree ──────────────────────────────────────────────────────────
   var nodeIdCounter = 0;
 
@@ -276,11 +223,6 @@
       update(d);
     });
 
-    // Tooltips
-    nodeEnter.on('mouseover', showTooltip)
-             .on('mousemove', moveTooltip)
-             .on('mouseout',  hideTooltip);
-
     // Transition in
     var nodeUpdate = nodeEnter.merge(node);
     nodeUpdate.transition().duration(TRANSITION_MS)
@@ -358,8 +300,6 @@
   function init(actualBooks, speculativeBooks) {
     var wrapper = document.getElementById('tree-wrapper');
     if (!wrapper || typeof d3 === 'undefined') return;
-
-    tooltip = document.getElementById('tree-tooltip');
 
     var containerW = wrapper.parentElement.offsetWidth || 900;
     width = Math.max(containerW, 700) - margin.left - margin.right;

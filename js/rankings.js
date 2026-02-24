@@ -53,7 +53,7 @@
            '<span class="rank-num">' + rankDisp + '</span>' +
            renderCatChip(book) +
            '<div class="rank-info">' +
-             '<a class="rank-title" href="' + _bfUrl(book) + '" target="_blank" rel="noopener" title="Find on BookFinder">' + _esc(book.title) + '</a>' +
+             '<a class="rank-title" href="' + _bfUrl(book) + '" target="_blank" rel="noopener">' + _esc(book.title) + '<span class="bf-hint">Find copies →</span></a>' +
              '<span class="rank-author">' + _esc(book.author) + '</span>' +
            '</div>' +
            renderYear(book.year) +
