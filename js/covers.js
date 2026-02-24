@@ -60,13 +60,19 @@
     var url = 'https://openlibrary.org/search.json'
             + '?title='  + encodeURIComponent(item.title)
             + '&author=' + encodeURIComponent(item.author)
-            + '&limit=1&fields=cover_i';
+            + '&limit=1&fields=cover_i,cover_edition_key';
 
     fetch(url)
       .then(function (r) { return r.json(); })
       .then(function (data) {
-        var id     = data.docs && data.docs[0] && data.docs[0].cover_i;
-        var imgUrl = id ? 'https://covers.openlibrary.org/b/id/' + id + '-M.jpg' : null;
+        var doc        = data.docs && data.docs[0];
+        var coverId    = doc && doc.cover_i;
+        var editionKey = doc && doc.cover_edition_key;
+        var imgUrl = coverId
+          ? 'https://covers.openlibrary.org/b/id/'   + coverId    + '-M.jpg'
+          : editionKey
+          ? 'https://covers.openlibrary.org/b/olid/' + editionKey + '-M.jpg'
+          : null;
         CACHE.set(item.key, imgUrl);
         _apply(item.el, imgUrl);
       })
