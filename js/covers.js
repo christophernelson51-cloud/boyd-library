@@ -60,7 +60,7 @@
     var url = 'https://openlibrary.org/search.json'
             + '?title='  + encodeURIComponent(item.title)
             + '&author=' + encodeURIComponent(item.author)
-            + '&limit=1&fields=cover_i,cover_edition_key';
+            + '&limit=1&fields=cover_i,cover_edition_key,isbn';
 
     fetch(url)
       .then(function (r) { return r.json(); })
@@ -68,10 +68,13 @@
         var doc        = data.docs && data.docs[0];
         var coverId    = doc && doc.cover_i;
         var editionKey = doc && doc.cover_edition_key;
+        var isbn       = doc && doc.isbn && doc.isbn[0];
         var imgUrl = coverId
           ? 'https://covers.openlibrary.org/b/id/'   + coverId    + '-M.jpg'
           : editionKey
           ? 'https://covers.openlibrary.org/b/olid/' + editionKey + '-M.jpg'
+          : isbn
+          ? 'https://covers.openlibrary.org/b/isbn/' + isbn       + '-M.jpg'
           : null;
         CACHE.set(item.key, imgUrl);
         _apply(item.el, imgUrl);
