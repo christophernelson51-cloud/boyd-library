@@ -339,7 +339,9 @@
     });
 
     svg   = svgEl;
-    gMain = svgEl.append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+    var initCenterY = (wrapper.clientHeight || 600) / 2;
+    gMain = svgEl.append('g').attr('transform', 'translate(' + margin.left + ',' + initCenterY + ')');
+    svgEl.call(zoom.transform, d3.zoomIdentity.translate(margin.left, initCenterY));
     gLinks = gMain.append('g').attr('class', 'links');
     gNodes = gMain.append('g').attr('class', 'nodes');
 
@@ -352,8 +354,9 @@
         root.children && root.children.forEach(function (branch) {
           branch.children && branch.children.forEach(function (cat) { collapse(cat); });
         });
+        var centerY = (wrapper.clientHeight || 600) / 2;
         svgEl.transition().duration(TRANSITION_MS)
-          .call(zoom.transform, d3.zoomIdentity.translate(margin.left, margin.top));
+          .call(zoom.transform, d3.zoomIdentity.translate(margin.left, centerY));
         update(root);
         if (window.BoydState) window.BoydState.clearFilters();
       });
