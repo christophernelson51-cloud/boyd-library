@@ -786,6 +786,10 @@ html[data-theme="light"] .hero-vignette {
   color: var(--muted);
   white-space: nowrap;
 }
+.rating-val.not-reviewed {
+  font-style: italic;
+  opacity: 0.5;
+}
 
 .rank-actions {
   display: flex;

@@ -351,7 +351,7 @@
     {title:"Beyond Culture",author:"Edward T. Hall",year:1977,rating:4.13,category:"Science",slug:"beyond-culture",notes:"annotated with page notations inside back cover"},
     {title:"Exploring Chaos: A Guide to the New Science of Disorder",author:"Nina Hall (editor)",year:1994,rating:3.80,category:"Complexity",slug:"exploring-chaos"},
     {title:"The Twilight of Capitalism",author:"Michael Harrington",year:1976,rating:3.90,category:"Political Philosophy",slug:"the-twilight-of-capitalism"},
-    {title:"Calculus",author:"William L. Hart",year:1955,rating:4.78,category:"Mathematics",slug:"calculus"},
+    {title:"Calculus",author:"William L. Hart",year:1955,rating:null,category:"Mathematics",slug:"calculus"},
     {title:"A Brief History of Time: From the Big Bang to Black Holes",author:"Stephen W. Hawking",year:1988,rating:4.21,category:"Physics",slug:"a-brief-history-of-time",notes:"annotated with page notations inside back cover"},
     {title:"The Fatal Conceit: The Errors of Socialism",author:"F.A. Hayek",year:1988,rating:4.22,category:"Political Philosophy",slug:"the-fatal-conceit",notes:"annotated"},
     {title:"The Tao of Leadership: Leadership Strategies for a New Age",author:"John Heider",year:1986,rating:4.10,category:"Philosophy",slug:"the-tao-of-leadership",notes:"annotated"},

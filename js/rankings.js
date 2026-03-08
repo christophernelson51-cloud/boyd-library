@@ -23,6 +23,9 @@
 
   // ─── Rating bar renderer ──────────────────────────────────────────────────
   function renderRatingBar(rating) {
+    if (rating === null || rating === undefined) {
+      return '<div class="rating-bar-wrap"><span class="rating-val not-reviewed">Not Reviewed</span></div>';
+    }
     var pct = ((rating - 3.0) / 2.0) * 100; // scale 3–5 → 0–100%
     pct = Math.max(0, Math.min(100, pct));
     return '<div class="rating-bar-wrap"><div class="rating-bar" style="width:' + pct + '%"></div>' +
@@ -57,7 +60,7 @@
              '<span class="rank-author">' + _esc(book.author) + '</span>' +
            '</div>' +
            renderYear(book.year) +
-           renderStars(book.rating) +
+           (book.rating !== null && book.rating !== undefined ? renderStars(book.rating) : '') +
            renderRatingBar(book.rating) +
            '<div class="rank-actions">' +
              '<button class="pin-btn" data-slug="' + book.slug + '" title="' + (pinned ? 'Unpin' : 'Pin to top') + '">' +
@@ -97,6 +100,9 @@
     var sortDir = state.sortDir || 'desc';
     unpinned.sort(function (a, b) {
       var av = a[sortBy], bv = b[sortBy];
+      // Null ratings always sort to the end regardless of direction
+      if (av === null || av === undefined) return 1;
+      if (bv === null || bv === undefined) return -1;
       if (typeof av === 'string') av = av.toLowerCase();
       if (typeof bv === 'string') bv = bv.toLowerCase();
       if (av < bv) return sortDir === 'asc' ? -1 : 1;
