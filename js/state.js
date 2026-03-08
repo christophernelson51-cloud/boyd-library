@@ -49,15 +49,13 @@
 
   function _syncHash(s) {
     var parts = [];
-    if (s.selectedBranch)   parts.push('branch=' + s.selectedBranch);
-    if (s.selectedCategory) parts.push('cat=' + encodeURIComponent(s.selectedCategory));
+    if (s.selectedBranch)      parts.push('branch=' + s.selectedBranch);
+    if (s.selectedCategory)    parts.push('cat=' + encodeURIComponent(s.selectedCategory));
     if (s.sortBy !== 'rating') parts.push('sort=' + s.sortBy);
-    if (s.sortDir !== 'desc') parts.push('dir=' + s.sortDir);
-    if (s.searchQuery) parts.push('q=' + encodeURIComponent(s.searchQuery));
-    var hash = parts.length ? '#' + parts.join('&') : '#';
-    if (window.location.hash !== hash) {
-      history.replaceState(null, '', hash || window.location.pathname);
-    }
+    if (s.sortDir !== 'desc')  parts.push('dir=' + s.sortDir);
+    // searchQuery intentionally excluded — transient, causes scroll side-effects
+    var hash = parts.length ? '#' + parts.join('&') : window.location.pathname;
+    history.replaceState(null, '', hash);
   }
 
   function loadFromHash() {
@@ -71,7 +69,7 @@
       if (k === 'cat')      patch.selectedCategory = v;
       if (k === 'sort')     patch.sortBy           = v;
       if (k === 'dir')      patch.sortDir          = v;
-      if (k === 'q')        patch.searchQuery      = v;
+      // 'q' excluded — search not persisted in hash
     });
     if (Object.keys(patch).length) setState(patch);
   }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,7 +30,7 @@
   <!-- ── Navigation ─────────────────────────────────────────────────────── -->
   <nav id="site-nav" role="navigation" aria-label="Main navigation">
     <button id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
-    <button id="theme-toggle" aria-label="Switch to light mode">☀</button>
+    <button id="theme-toggle" aria-label="Switch to dark mode">☾</button>
     <ul id="nav-menu">
       <li><a class="nav-link" href="#hero"                data-scroll data-section="hero">Home</a></li>
       <li><a class="nav-link" href="#section-rankings"    data-scroll data-section="rankings">Rankings</a></li>
@@ -45,14 +45,21 @@
        SECTION 1 — HERO
        ══════════════════════════════════════════════════════════════════════ -->
   <section id="hero" data-section="hero" aria-label="Hero">
-    <div class="hero-vignette" aria-hidden="true"></div>
 
-    <div class="hero-content" id="hero-content">
-      <h1 class="hero-title"><span class="title-initial">J</span>ohn <span class="title-initial">B</span>oyd's <span class="title-initial">L</span>ibrary</h1>
-      <p class="hero-subtitle">The books that built the OODA loop — and what he might have read next.</p>
-      <p class="hero-meta">
-        <span>134 books</span> · <span>4 intellectual branches</span> · <span>600 BCE–1997</span>
-      </p>
+    <!-- Left column: Boyd photo / mosaic animation -->
+    <div class="hero-image-col">
+      <div class="hero-vignette" aria-hidden="true"></div>
+    </div>
+
+    <!-- Right column: title and metadata — always structurally separate from the image -->
+    <div class="hero-text-col">
+      <div class="hero-content" id="hero-content">
+        <h1 class="hero-title"><span class="title-initial">J</span>ohn <span class="title-initial">B</span>oyd's <span class="title-initial">L</span>ibrary</h1>
+        <p class="hero-subtitle">The books that built the OODA loop — and what he might have read next.</p>
+        <p class="hero-meta">
+          <span>479 books</span> · <span>4 intellectual branches</span> · <span>600 BCE–1997</span>
+        </p>
+      </div>
     </div>
 
     <div id="scroll-cue" role="button" tabindex="0" aria-label="Scroll to begin">
@@ -77,8 +84,7 @@
           <p>
             Colonel John Richard Boyd never published a book. His legacy lives in a
             briefing — <em>A Discourse on Winning and Losing</em> — and in the minds of
-            the officers, defense reformers, and business strategists he seduced into
-            all-night conversations in the Pentagon.
+            the officers, defense officials, and strategists he still influences today.
           </p>
           <p>
             But Boyd read voraciously. His personal library spanned military history and
@@ -87,13 +93,13 @@
             Each one contributed a concept, a metaphor, or a formal tool to the OODA loop.
           </p>
           <p>
-            This project maps that library: 134 verified books from Boyd's collection.
+            This project maps that library: 479 verified books from Boyd's collection.
             Below, we also speculate about what Boyd <em>would</em> have read had he
             lived past 1997.
           </p>
           <div class="stats-row">
             <div class="stat-item">
-              <span class="stat-number">134</span>
+              <span class="stat-number">479</span>
               <span class="stat-label">Verified books</span>
             </div>
             <div class="stat-item">
@@ -101,7 +107,7 @@
               <span class="stat-label">Intellectual branches</span>
             </div>
             <div class="stat-item">
-              <span class="stat-number">4.08</span>
+              <span class="stat-number">3.88</span>
               <span class="stat-label">Avg Goodreads rating</span>
             </div>
           </div>
@@ -281,7 +287,7 @@
       <h2 class="branch-title">Mind &amp; Knowledge</h2>
       <p class="branch-tagline">Orientation as the mental model of the world</p>
       <p class="branch-narrative">
-        The "O" in OODA—Orientation—is the keystone of Boyd's theory. It is not merely a step;
+        The second "O" in OODA—Orientation—is the keystone of Boyd's theory. It is not merely a step;
         it is the lens through which all observations are filtered and all decisions emerge.
         Boyd read Bateson, Polanyi, Maturana, and Hofstadter to understand how minds construct
         their models of reality, how those models become rigid or adaptive, and what it means
@@ -460,6 +466,9 @@
       sources, and Goodreads community ratings.
       Built to be hosted on GitHub Pages — no server required.
     </p>
+    <p class="footer-text">
+      Created by <a href="https://www.linkedin.com/in/christopher-nelson01/" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">Christopher Nelson</a>
+    </p>
   </footer>
 
   <!-- ── Scripts (order matters) ──────────────────────────────────────── -->
@@ -470,7 +479,6 @@
   <script src="js/scroll.js"></script>
   <script src="js/rankings.js"></script>
   <script src="js/tree.js"></script>
-  <script src="js/covers.js"></script>
   <script src="js/app.js"></script>
 
 </body>

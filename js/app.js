@@ -111,12 +111,6 @@
         if (c) window.BoydScroll.observeNewCards(c);
       });
     }
-    if (window.BoydCovers) {
-      ['war','science','mind','power'].forEach(function (bId) {
-        var c = document.getElementById('narrative-' + bId);
-        if (c) window.BoydCovers.observe(c);
-      });
-    }
   }
 
   // ─── Build speculative section cards ─────────────────────────────────────
@@ -140,12 +134,6 @@
       ['war','science','mind','power'].forEach(function (bId) {
         var c = document.getElementById('speculative-' + bId);
         if (c) window.BoydScroll.observeNewCards(c);
-      });
-    }
-    if (window.BoydCovers) {
-      ['war','science','mind','power'].forEach(function (bId) {
-        var c = document.getElementById('speculative-' + bId);
-        if (c) window.BoydCovers.observe(c);
       });
     }
   }
@@ -180,10 +168,8 @@
       : '';
 
     return '<div class="book-card' + (isSpeculative ? ' speculative-card' : '') + '">' +
-      '<div class="card-cover" style="background:' + color + '22;border-color:' + color + '44"' +
-        ' data-title="' + _esc(book.title) + '" data-author="' + _esc(book.author) + '">' +
+      '<div class="card-cover" style="background:' + color + '22;border-color:' + color + '44">' +
         '<span class="card-initials" style="color:' + color + '">' + initials + '</span>' +
-        '<img class="card-cover-img" alt="" aria-hidden="true">' +
       '</div>' +
       '<div class="card-body">' +
         '<div class="card-meta-top">' +

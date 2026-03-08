@@ -4,7 +4,9 @@
   'use strict';
 
   function getTheme() {
-    return document.documentElement.getAttribute('data-theme') || 'dark';
+    return localStorage.getItem('boyd_theme') ||
+      document.documentElement.getAttribute('data-theme') ||
+      'light';
   }
 
   function applyTheme(theme) {
