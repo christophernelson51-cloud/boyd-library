@@ -1271,6 +1271,16 @@ An account of alleged Soviet and Chinese use of narcotics trafficking as a tool 
 
 ---
 
+### War & Strategy
+
+**Carl von Clausewitz** — *On War* — `3.96`
+The foundational text of Western strategic theory, arguing that war is a continuation of politics by other means and that its nature is shaped by a "remarkable trinity" of primordial violence, chance, and rational purpose. Clausewitz's concept of friction, the fog of war, and the center of gravity remain essential vocabulary for military strategists.
+
+**Sun Tzu** — *The Art of War* — `3.94`
+The oldest and most influential military treatise in existence, written circa 500 BC, covering deception, speed, adaptability, and the supreme importance of winning without fighting. Boyd drew deeply on Sun Tzu's emphasis on shaping the enemy's perception and exploiting ambiguity — themes that run throughout the OODA loop.
+
+---
+
 ### Aviation & Military Technology
 
 **T.E. Bearden** — *Fer-de-Lance* — `Not Reviewed`  
