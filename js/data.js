@@ -286,7 +286,7 @@
     {title:"The Astonishing Hypothesis: The Scientific Search for the Soul",author:"Francis Crick",year:1994,rating:3.77,category:"Science",slug:"the-astonishing-hypothesis",notes:"annotated"},
     {title:"Statistics Manual",author:"Edwin L. Crow, et al.",year:1960,rating:4.00,category:"Science",slug:"statistics-manual"},
     {title:"Foundations of Mathematical Logic",author:"Haskell B. Curry",year:1977,rating:3.61,category:"Logic",slug:"foundations-of-mathematical-logic"},
-    {title:"The Trachtenberg Speed System of Basic Mathematics",author:"Ann Cutler and Rudolph McShane",year:1960,rating:4.62,category:"Mathematics",slug:"the-trachtenberg-speed-system-of-basic-mathematics"},
+    {title:"The Trachtenberg Speed System of Basic Mathematics",author:"Ann Cutler and Rudolph McShane",year:1960,rating:null,category:"Mathematics",slug:"the-trachtenberg-speed-system-of-basic-mathematics"},
     {title:"The Rise of the New Physics, vol. 1 & 2",author:"A. d'Abro",year:null,rating:2.50,category:"Physics",slug:"the-rise-of-the-new-physics-vol-1-2",notes:"both volumes annotated, page notations inside back covers"},
     {title:"The Origin of Species",author:"Charles Darwin",year:null,rating:4.00,category:"Science",slug:"the-origin-of-species"},
     {title:"The Runaway Universe",author:"Paul Davies",year:1978,rating:4.21,category:"Physics",slug:"the-runaway-universe",notes:"2 copies"},
