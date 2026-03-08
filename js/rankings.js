@@ -114,12 +114,17 @@
     var books  = getFilteredBooks(state);
     var total  = books.length;
 
+    // Save scroll position — rankings height changes cause scroll anchoring to
+    // jump the viewport into adjacent sections (tree or library).
+    var savedScrollY = window.scrollY;
+
     if (total === 0) {
       listEl.innerHTML = '<li class="no-results">No books match your filters. <button id="clear-filters-btn">Clear filters</button></li>';
       var btn = document.getElementById('clear-filters-btn');
       if (btn) btn.addEventListener('click', function () {
         if (window.BoydState) window.BoydState.clearFilters();
       });
+      window.scrollTo({ top: savedScrollY, behavior: 'instant' });
       return;
     }
 
@@ -131,6 +136,9 @@
 
     attachRowEvents();
     if (window.BoydScroll) window.BoydScroll.observeNewCards(listEl);
+
+    // Restore scroll position after DOM change to prevent viewport jumping.
+    window.scrollTo({ top: savedScrollY, behavior: 'instant' });
   }
 
   // ─── Attach events to rows ────────────────────────────────────────────────
