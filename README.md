@@ -4,7 +4,7 @@ A scroll-driven, single-page visualization of John Boyd's personal library —
 the books that built the OODA loop, and a speculative reading list of what he might have
 read had he lived past 1997.
 
-**Live site:** [GitHub Pages URL here once deployed]
+**Live site:** [boydsbooks.online](https://boydsbooks.online)
 
 ---
 
