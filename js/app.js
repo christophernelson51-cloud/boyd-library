@@ -30,10 +30,22 @@
     if (window.BoydTree) window.BoydTree.init(actual, speculative);
 
     // ── Long scroll narrative cards ───────────────────────────────────────
-    buildNarrativeCards(actual, speculative);
+    try {
+      buildNarrativeCards(actual, speculative);
+    } catch (e) {
+      console.error('buildNarrativeCards failed:', e);
+      var dbg = document.getElementById('narrative-war');
+      if (dbg) dbg.innerHTML = '<p style="color:red;padding:1rem">DEBUG: ' + e.message + '</p>';
+    }
 
     // ── Speculative section ───────────────────────────────────────────────
-    buildSpeculativeCards(speculative);
+    try {
+      buildSpeculativeCards(speculative);
+    } catch (e) {
+      console.error('buildSpeculativeCards failed:', e);
+      var dbg2 = document.getElementById('speculative-war');
+      if (dbg2) dbg2.innerHTML = '<p style="color:red;padding:1rem">DEBUG: ' + e.message + '</p>';
+    }
 
     // ── Mobile nav toggle ─────────────────────────────────────────────────
     var navToggle = document.getElementById('nav-toggle');
