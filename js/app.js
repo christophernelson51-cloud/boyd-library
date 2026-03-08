@@ -81,9 +81,13 @@
         catMap[b.category].push(b);
       });
 
-      // Sort books within each category by rating desc
+      // Sort books within each category by rating desc (null ratings sort to end)
       categories.forEach(function (cat) {
-        catMap[cat].sort(function (a, b) { return b.rating - a.rating; });
+        catMap[cat].sort(function (a, b) {
+          if (a.rating === null || a.rating === undefined) return 1;
+          if (b.rating === null || b.rating === undefined) return -1;
+          return b.rating - a.rating;
+        });
       });
 
       var html = '';
@@ -179,7 +183,7 @@
         '</div>' +
         '<a class="card-title" href="' + bfUrl + '" target="_blank" rel="noopener" title="Find on BookFinder">' + _esc(book.title) + '</a>' +
         '<p class="card-author">' + _esc(book.author) + '</p>' +
-        '<div class="card-stars">' + stars + '<span class="card-rating">' + book.rating.toFixed(2) + '</span></div>' +
+        '<div class="card-stars">' + (book.rating !== null && book.rating !== undefined ? stars + '<span class="card-rating">' + book.rating.toFixed(2) + '</span>' : '<span class="card-rating not-reviewed">Not Reviewed</span>') + '</div>' +
         (cardDesc ? '<p class="card-desc">' + cardDesc + '</p>' : '') +
         connectionBadge +
       '</div>' +
@@ -196,6 +200,7 @@
   }
 
   function renderStars(rating) {
+    if (rating === null || rating === undefined) return '';
     var full  = Math.floor(rating);
     var half  = (rating - full) >= 0.5 ? 1 : 0;
     var empty = 5 - full - half;

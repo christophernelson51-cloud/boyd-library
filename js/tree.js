@@ -216,9 +216,9 @@
       toggleNode(d);
 
       if (d.data.type === 'category' && window.BoydState) {
-        window.BoydState.setCategory(d.data.category);
+        _withScrollLock(function () { window.BoydState.setCategory(d.data.category); });
       } else if (d.data.type === 'branch' && window.BoydState) {
-        window.BoydState.setBranch(d.data.id);
+        _withScrollLock(function () { window.BoydState.setBranch(d.data.id); });
       }
       update(d);
     });
@@ -358,7 +358,7 @@
         svgEl.transition().duration(TRANSITION_MS)
           .call(zoom.transform, d3.zoomIdentity.translate(margin.left, centerY));
         update(root);
-        if (window.BoydState) window.BoydState.clearFilters();
+        if (window.BoydState) _withScrollLock(function () { window.BoydState.clearFilters(); });
       });
     }
 
@@ -386,6 +386,21 @@
           return d2._children ? (d2.data.color || '#888') : 'transparent';
         });
     });
+  }
+
+  // ─── Scroll lock: prevent viewport jump when rankings height changes ─────────
+  // Measures rankings section height before/after a state change and compensates.
+  function _withScrollLock(fn) {
+    var el = document.getElementById('section-rankings');
+    if (!el) { fn(); return; }
+    var before = el.getBoundingClientRect().bottom;
+    fn();
+    var after = el.getBoundingClientRect().bottom;
+    var delta = after - before;
+    // Only compensate when rankings is entirely above the viewport (user is in tree)
+    if (delta !== 0 && before < 0) {
+      window.scrollTo({ top: window.scrollY + delta, behavior: 'instant' });
+    }
   }
 
   function _esc(str) {
