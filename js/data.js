@@ -697,7 +697,7 @@
     {title:"Man, the Manipulator: The Inner Journey from Manipulation to Actualization",author:"Everett L. Shostrom",year:1972,rating:3.92,category:"Psychology",slug:"man-the-manipulator"},
     {title:"The Immigration Time Bomb",author:"Palmer Stacy and Wayne Lutton",year:1985,rating:3.80,category:"Sociology",slug:"the-immigration-time-bomb"},
     {title:"Rio: Reshaping the International Order: A Report to the Club of Rome",author:"Jan Tinbergen (coordinator)",year:1977,rating:3.80,category:"Geopolitics",slug:"rio"},
-    {title:"Future Shock",author:"Alvin Toffler",year:1970,rating:4.83,category:"Sociology",slug:"future-shock",notes:"annotated with page notations inside front cover"},
+    {title:"Future Shock",author:"Alvin Toffler",year:1970,rating:3.82,category:"Sociology",slug:"future-shock",notes:"annotated with page notations inside front cover"},
     {title:"How to Improve Your Memory",author:"James D. Weinland",year:1970,rating:3.80,category:"Neuroscience",slug:"how-to-improve-your-memory"},
     {title:"On War",author:"Carl von Clausewitz",year:1832,rating:3.96,category:"Military Strategy",slug:"on-war",notes:"Added manually — foundational text"},
     {title:"The Art of War",author:"Sun Tzu",year:-500,rating:3.94,category:"Military Strategy",slug:"the-art-of-war",notes:"Added manually — foundational text"},
