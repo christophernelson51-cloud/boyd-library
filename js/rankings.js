@@ -1,5 +1,5 @@
 // js/rankings.js
-// Sortable, filterable, searchable, drag-reorderable book list
+// Sortable, filterable, searchable book list with hover tooltips
 
 (function () {
   'use strict';
@@ -8,6 +8,8 @@
   var listEl      = null;
   var allBooks    = [];
   var pinnedSlugs = new Set();
+  var tooltipEl   = null;
+  var bookMap     = {};  // slug → book
 
   // ─── Stars renderer ───────────────────────────────────────────────────────
   function renderStars(rating) {
@@ -139,6 +141,49 @@
     if (window.BoydScroll) window.BoydScroll.observeNewCards(listEl);
   }
 
+  // ─── Tooltip ─────────────────────────────────────────────────────────────
+  function initTooltip() {
+    tooltipEl = document.getElementById('book-tooltip');
+  }
+
+  function showTooltip(book, e) {
+    if (!tooltipEl) return;
+    var desc = book.bookDesc || book.description || '';
+    var rating = (book.rating !== null && book.rating !== undefined)
+      ? '★ ' + parseFloat(book.rating).toFixed(2)
+      : 'Not rated';
+    var bfUrl = window.BOYD_DATA && window.BOYD_DATA.bookFinderUrl
+      ? window.BOYD_DATA.bookFinderUrl(book.title, book.author) : '#';
+    tooltipEl.innerHTML =
+      '<div class="tt-title">' + _esc(book.title) + '</div>' +
+      '<div class="tt-author">' + _esc(book.author || '') + (book.year ? ' · ' + (book.year < 0 ? Math.abs(book.year) + ' BCE' : book.year) : '') + '</div>' +
+      (desc
+        ? '<div class="tt-desc">' + _esc(desc) + '</div>'
+        : '<div class="tt-nodesc">No description available.</div>') +
+      '<div class="tt-footer">' +
+        '<span class="tt-rating">' + rating + '</span>' +
+        '<a class="tt-link" href="' + bfUrl + '" target="_blank" rel="noopener" onclick="event.stopPropagation()">Find copies →</a>' +
+      '</div>';
+    tooltipEl.classList.add('visible');
+    positionTooltip(e);
+  }
+
+  function positionTooltip(e) {
+    if (!tooltipEl) return;
+    var pad = 18;
+    var tw  = 320;
+    var x   = e.clientX + pad;
+    var y   = e.clientY + pad;
+    if (x + tw > window.innerWidth)  x = e.clientX - tw - pad;
+    if (y + tooltipEl.offsetHeight > window.innerHeight) y = e.clientY - tooltipEl.offsetHeight - pad;
+    tooltipEl.style.left = x + 'px';
+    tooltipEl.style.top  = y + 'px';
+  }
+
+  function hideTooltip() {
+    if (tooltipEl) tooltipEl.classList.remove('visible');
+  }
+
   // ─── Attach events to rows ────────────────────────────────────────────────
   function attachRowEvents() {
     listEl.querySelectorAll('.pin-btn').forEach(function (btn) {
@@ -149,6 +194,18 @@
         else pinnedSlugs.add(slug);
         render();
       });
+    });
+
+    listEl.querySelectorAll('.rank-row').forEach(function (row) {
+      var slug = row.dataset.slug;
+      row.addEventListener('mouseenter', function (e) {
+        var book = bookMap[slug];
+        if (book) showTooltip(book, e);
+      });
+      row.addEventListener('mousemove', function (e) {
+        positionTooltip(e);
+      });
+      row.addEventListener('mouseleave', hideTooltip);
     });
   }
 
@@ -225,6 +282,8 @@
     if (!listEl) return;
 
     allBooks = books.slice();
+    allBooks.forEach(function (b) { bookMap[b.slug] = b; });
+    initTooltip();
     initControls();
     render();
 

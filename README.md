@@ -1,8 +1,6 @@
 # John Boyd's Library
 
-A scroll-driven, single-page visualization of John Boyd's personal library —
-the books that built the OODA loop, and a speculative reading list of what he might have
-read had he lived past 1997.
+An interactive visualization of Colonel John Boyd's personal library — the books that built the OODA loop, and a speculative reading list of what he might have read had he lived past 1997.
 
 **Live site:** [boydsbooks.online](https://boydsbooks.online)
 
@@ -10,37 +8,38 @@ read had he lived past 1997.
 
 ## What's Inside
 
-- **134 books** in Boyd's actual (or plausibly owned) library
+- **479 verified books** from Boyd's personal papers at the Marine Corps University archive
 - **~150 speculative titles** (post-1997, rating ≥ 4.0) linked back to actual books via curated connection edges
 - **4 intellectual branches:** War & Strategy · Systems & Science · Mind & Knowledge · Power & Organizations
-- **Sortable/filterable rankings** with drag-to-reorder and pin-to-top
-- **D3 v7 collapsible tidy tree** — click to filter rankings, hover for details, zoom/pan
-- **Long-scroll narrative** with IntersectionObserver card animations
-- **Reading progress bar**, URL hash state persistence, `prefers-reduced-motion` support
-- **No build step** — open `index.html` directly in a browser (file://)
+- **Video intro** — Boyd animation plays on load; site reveals when the book is thrown at the end
+- **Sortable/filterable rankings** with **hover tooltips** (book description on mouseover), pin-to-top, and BookFinder links
+- **D3 v7 collapsible knowledge tree** — click to filter rankings
+- **4 D3 analysis charts:** Esteem & Reach scatter · Most-read bar chart · Rating density · Slope chart (highest vs. most-rated edition)
+- **Reading progress bar**, search, branch filters, `prefers-reduced-motion` support
+- **No build step** — serve locally with `python3 -m http.server 8000`
 
 ---
 
 ## File Structure
 
 ```
-Boyd Library Project/
-├── index.html                ← full experience, one page
+boyd-library/
+├── index.html              ← full experience, one page
+├── boyd_intro.mp4          ← opening video (Boyd animation)
+├── Boyd56.png              ← Boyd portrait
 ├── css/
-│   └── style.css             ← all styling, CSS custom properties
+│   └── style.css           ← all styling, CSS custom properties
 ├── js/
-│   ├── data.js               ← all book data consolidated
-│   ├── state.js              ← global state with pub/sub
-│   ├── hero.js               ← video loop + scroll cue
-│   ├── rankings.js           ← sortable/filterable/reorderable list
-│   ├── tree.js               ← D3 v7 collapsible tidy tree
-│   ├── scroll.js             ← IntersectionObserver + progress bar
-│   └── app.js                ← init, wires modules together
+│   ├── data.js             ← all book data + individual descriptions
+│   ├── state.js            ← global state with pub/sub
+│   ├── hero.js             ← video intro + reveal on end/skip
+│   ├── rankings.js         ← sortable list + hover tooltips
+│   ├── tree.js             ← D3 v7 collapsible tidy tree
+│   ├── scroll.js           ← IntersectionObserver + progress bar
+│   ├── charts.js           ← 4 D3 analysis charts
+│   └── app.js              ← init, wires modules together
 ├── scripts/
-│   └── buildData.mjs         ← Node util: export clean JSON
-├── Boyd56.png                ← portrait (original, untouched)
-├── black_and_white_man_web.mp4 ← hero video (original, untouched)
-├── .gitignore
+│   └── buildData.mjs       ← Node util: export clean JSON
 └── README.md
 ```
 
@@ -77,12 +76,14 @@ python3 -m http.server 8000
 
 ## Design System
 
+White editorial aesthetic — white background, near-black text, Boyd red as accent.
+
 | Token | Value |
 |---|---|
-| `--bg` | `#0d0d0d` |
-| `--surface` | `#161616` |
-| `--text` | `#e8e2d4` (warm cream) |
-| `--accent` | `#c9a84c` (Boyd gold) |
+| `--bg` | `#ffffff` |
+| `--text` | `#1a1a1a` |
+| `--accent` | `#8b1a1a` (Boyd red) |
+| `--gold` | `#c9a84c` |
 | `--branch-war` | `#8b1a1a` |
 | `--branch-science` | `#1a4a8b` |
 | `--branch-mind` | `#2d6e4e` |
