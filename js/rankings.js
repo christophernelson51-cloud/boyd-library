@@ -53,8 +53,10 @@
   function renderRow(book, idx, total) {
     var pinned   = pinnedSlugs.has(book.slug);
     var rankDisp = pinned ? '📌' : (idx + 1);
+    var branchColor = book.branchColor || 'transparent';
     return '<li class="rank-row' + (pinned ? ' pinned' : '') + '" ' +
-           'data-slug="' + book.slug + '">' +
+           'data-slug="' + book.slug + '" ' +
+           'style="border-left:3px solid ' + branchColor + '">' +
            '<span class="rank-num">' + rankDisp + '</span>' +
            renderCatChip(book) +
            '<div class="rank-info">' +
