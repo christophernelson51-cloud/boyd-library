@@ -164,7 +164,7 @@ img, video { max-width: 100%; display: block; }
 }
 
 .hero-content {
-  padding: 7rem 6vw 0;
+  padding: 5.5rem 6vw 0;
   max-width: 1100px;
   opacity: 0;
   transform: translateY(24px);
@@ -234,7 +234,7 @@ img, video { max-width: 100%; display: block; }
   align-items: flex-end;
   gap: 1px;
   width: 100%;
-  height: 44vh;
+  height: 54vh;
   padding: 0 6vw;
   border-bottom: 2px solid var(--text);
   opacity: 0;
@@ -307,14 +307,13 @@ img, video { max-width: 100%; display: block; }
 /* Scroll cue */
 #scroll-cue {
   position: absolute;
-  bottom: 2.5rem;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: calc(54vh + 18px);
+  left: 6vw;
   z-index: 10;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.6rem;
   cursor: pointer;
   transition: opacity var(--transition);
 }
