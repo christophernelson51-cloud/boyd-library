@@ -5,10 +5,10 @@
 
 /* ─── Custom Properties — White editorial theme ──────────────────────────── */
 :root {
-  --bg:          #ffffff;
-  --surface:     #f6f5f3;
-  --surface-2:   #eeedea;
-  --border:      #e0ddd8;
+  --bg:          #faf8f4;
+  --surface:     #f3f0ea;
+  --surface-2:   #ebe7df;
+  --border:      #ddd8cf;
   --text:        #1a1a1a;
   --muted:       #555550;
   --subtle:      #9a9590;
@@ -22,8 +22,8 @@
   --branch-mind:   #2d6e4e;
   --branch-power:  #6b3d8b;
 
-  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
-  --font-sans:  'Inter', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-sans:  'Archivo', system-ui, -apple-system, sans-serif;
 
   --scale-xs:   0.707rem;
   --scale-sm:   0.866rem;
@@ -94,7 +94,7 @@ img, video { max-width: 100%; display: block; }
   align-items: center;
   justify-content: flex-end;
   padding: 0.75rem 2rem;
-  background: rgba(255,255,255,0.94);
+  background: rgba(250,248,244,0.92);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
 }
@@ -426,7 +426,7 @@ img, video { max-width: 100%; display: block; }
   position: sticky;
   top: 48px;
   z-index: 200;
-  background: rgba(255,255,255,0.97);
+  background: rgba(250,248,244,0.97);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
   padding: 0.875rem 2rem;
